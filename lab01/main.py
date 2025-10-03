@@ -181,18 +181,60 @@ def atv16():
             break
 
 def atv17():
-    print()
+    f = lambda x: x**2
+    a = 0
+    b = 4
+    n = 4
+    
+    h = (b - a) / n
+    
+    area = f(a)
+    for i in range(1, n):
+        x = a + i*h
+        if i % 2 == 0: area += 2 * f(x)
+        else: area += 4 * f(x)
+    area += f(b)
 
+    area *= h / 3
+    print(area)
+    
 def atv18():
-    palavra = input()
+    palavra = input('Digite uma palavra e a mantenha em segredo: ')
+    gabarito = list(palavra)
     print("\n"*20)
 
-    lista = []
-    print(len(palavra))
+    descobertas = ["_" for _ in palavra]
+    
+    vidas = len(palavra)
+    for _ in range(vidas):
+        print(descobertas)
+        tentativa = input('Digite uma letra: ')
+        
+        if tentativa in palavra:
+            for i, l in enumerate(palavra):
+                if l == tentativa:
+                    descobertas[i] = tentativa
+        else:
+            print("Letra não contida na palavra!")
+                    
+        if gabarito == descobertas:
+            print("Parabéns!")
+            break
+    
+def atv19():
+    # deu preguica
+    M = [[5, 3, 4, 6, 7, 8, 9, 1, 2],
+         [6, 7, 2, 1, 9, 5, 3, 4, 8],
+         [1, 9, 8, 3, 4, 2, 5, 6, 7],
+         [8, 5, 9, 7, 6, 1, 4, 2, 3],
+         [4, 2, 6, 8, 5, 3, 7, 9, 1],
+         [7, 1, 3, 9, 2, 4, 8, 5, 6],
+         [9, 6, 1, 5, 3, 7, 2, 8, 4],
+         [2, 8, 7, 4, 1, 9, 6, 3, 5]]
     
 
 def main():
-    atv18()
+    atv19()
 
 if __name__== '__main__':
     main()
