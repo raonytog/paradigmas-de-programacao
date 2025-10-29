@@ -130,11 +130,47 @@ def fatores_fatoracao_aux(n, i, contador):
 def fatores_fatoracao(n):
     return fatores_fatoracao_aux(n, 2, contador=0)
 
-# Defina a função splitToken que recebe um valor e uma lista e retorna uma lista de listas utilizando o valor dado como marcador.
+# 21 Defina a função splitToken que recebe um valor e uma lista e retorna uma lista de listas utilizando o valor dado como marcador.
+def split_token_aux(token, l1, output):
+    if head(l1) == token: return [output] + split_token(token, tail(l1))
+    else: return split_token_aux(token, tail(l1), output+[head(l1)])
+    
 def split_token(token, l1):
-    if not pertence(token, l1): return []
+    if not pertence(token, l1): return [l1]
+    else: return split_token_aux(token, l1, output=[])
+
+# 22 Defina a função joinToken que recebe um valor e uma lista de listas e retorna a concatenação das sublistas usando o primeiro parâmetro como separador
+# NAO SEI SE ENTENDI
+def join_token(token, list):
+    print()
+
+# print( join_token(2, [[1, 2],[2, 3]]) )
+
+# 23 Defina a função splitHalf que divide uma lista em duas, de tamanho iguais (ou com  diferença de apenas um elemento no caso de uma lista de tamanho ímpar).
+def is_even(n):
+    return n%2==0
+
+def split_half_aux(original, left, max_size, current_size):
+    if current_size == max_size//2: return left, original
+    else: return split_half_aux(tail(original), left+[head(original)], max_size, current_size+1)
     
-    elif head(l1) == token:
-    else: return [head[l1]]
+def split_half(l1):
+    if l1 == [] or l1 == '': return []
+    else: return split_half_aux(l1, [], size(l1), 0)
     
-print( split_token(2, [1, 2, 3, 4, 2, 5, 6, 7, 8, 9, 2, 10]) )
+# 24 Uma tripla (x,y,z) de números inteiros positivos é chamada pitagórica se x2+y2 = z2. Usando list comprehension, defina uma função pyths que mapeia um inteiro n a uma lista de todas as triplas pitagóricas componentes no intervalo [1..n]. Por exemplo
+# ALGO ERRADO!
+def pyths_aux(i, j, n):
+    if i**2 + j**2 == n**2: 
+        return (i, j, n)
+    
+    else: 
+        if i < 5: return pyths_aux(i+1, j, n)
+        elif i==5: return pyths_aux(1, j+1, n)
+        elif j==5: return ()
+    
+def pyths(n):
+    if n <= 0: return []
+    else: return pyths_aux(1, 1, n)
+    
+print( pyths(5) )
