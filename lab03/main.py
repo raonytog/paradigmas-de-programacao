@@ -8,6 +8,7 @@ def head(list):
 def tail(list):
     if list == [] or list == '': return []
     else: return list[1:]
+    
 
 # 3 Escreva uma função ‘init’ que retorna toda a lista, exceto o último elemento
 def init(list):
@@ -69,22 +70,71 @@ def size(list):
     if list == [] or list == '': return 0
     else: return 1 + size(tail(list))
     
-# 14 Escreva a função ehPrimo para verificar se um número dado é primo.
-# NAO FEITO
-def is_prime(n):
-    if n == 0 or n == 1: return False
     
-print( is_prime(2) )
+# 14 Escreva a função ehPrimo para verificar se um número dado é primo.
+def prime_aux(n, i, c):
+    if i > n: return 0
+    elif n % i == 0: return 1 + prime_aux(n, i+1, c+1)
+    else: return prime_aux(n, i+1, c)
+    
+def is_prime(n):
+    if n <= 1: return False
+    return prime_aux(n, 1, 0) == 2
 
 # 15 Defina a função strip que dadas duas listas, retira da segunda todos os elementos que ocorrem na primeira, em qualquer quantidade.
-# NAO FEITO
-def strip(l1, l2):
-    if l2 == [] or l2 == '': return []
-    if pertence( head(l1), l2): return strip( tail(l1), tail(l2) )
-    else: return head(l2)
+### MEDIA
+def strip(elementos, l2):
+    if l2 == [] or l2 == '': return l2
+    elif pertence( head(l2), elementos): return strip(elementos, tail(l2) )
+    else: return [head(l2)] + strip( elementos, tail(l2))
     
-print( strip([1, 2], [3, 2, 4] ))
-
 # 16 Defina   a   função   consoantList   que   retorna   verdadeiro   se   somente   se   todas   as consoantes da segunda lista, incluindo repetições, ocorrem na primeira lista, na mesma ordem.
-def consoant_list(l1, l2):
-    if l2 == [] or l2 == '': return []
+# NAO FIZ
+def consoant_list(consoantes, l2):
+    if consoantes == [] or consoantes == '': return True
+    
+    elif pertence(head(consoantes), l2): 
+        return consoant_list(tail(consoantes), strip([head(consoantes)], l2))
+    else: return consoant_list(consoantes, tail(l2))
+    
+# print(consoant_list(list('sdd'), list('saudade')))
+
+# 17 Defina a função matches que recebe uma lista de palavras e uma sequência de  consoantes e retorna uma lista de possíveis palavras representadas pelas consoantes. Use a função da Q14. Exemplos:
+# NAO FIZ
+dic = ["arara","arreio","haskell","vaca","vacuo","velho","vermelho","vicio"]
+def match():
+    print()
+    
+# 18 Faça uma função que, dado um número, retorna o menor número primo que é maior que o número. Ex: proximoPrimo(2) → 3
+def next_prime(n):
+    if is_prime(n+1): return n+1
+    else: return next_prime(n+1)
+    
+# 19 Faça a função primes, que retorna a lista de fatores primos de um número que ela recebe. Ex: primes(8)→ [2,2,2]
+def fatoracao_aux(n, i):
+    if i > n: return []
+    elif n%i == 0: return [i] + fatoracao_aux(n/i, i)
+    else: return fatoracao_aux(n, next_prime(i))
+    
+def fatoracao(n):
+    return fatoracao_aux(n, 2)
+
+# 20 Defina a função primeFactors que fatora um número inteiro em uma lista de pares (fator,frequência). Exemplos:
+def fatores_fatoracao_aux(n, i, contador):
+    if i > n: return [(i, contador)]
+    elif n%i == 0: return fatores_fatoracao_aux(n/i, i, contador+1)
+    else: 
+        if contador != 0: return [(i, contador)] + fatores_fatoracao_aux(n, next_prime(i), contador=0)
+        else: return fatores_fatoracao_aux(n, next_prime(i), contador=0)
+    
+def fatores_fatoracao(n):
+    return fatores_fatoracao_aux(n, 2, contador=0)
+
+# Defina a função splitToken que recebe um valor e uma lista e retorna uma lista de listas utilizando o valor dado como marcador.
+def split_token(token, l1):
+    if not pertence(token, l1): return []
+    
+    elif head(l1) == token:
+    else: return [head[l1]]
+    
+print( split_token(2, [1, 2, 3, 4, 2, 5, 6, 7, 8, 9, 2, 10]) )
