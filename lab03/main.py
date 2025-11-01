@@ -173,4 +173,38 @@ def pyths(n):
     if n <= 0: return []
     else: return pyths_aux(1, 1, n)
     
-print( pyths(5) )
+# print( pyths(5) )
+#25 Um número inteiro positivo é perfeito se ele igual à soma de todos os seus fatores, excluindo o próprio número. Usando list comprehension, defina uma função perfects que retorna a lista de todos os números perfeitos de zero até um dado limite. Por exemplo: perfects (500) -> [6,28,496]
+def sum(list):
+    if list == []: return 0
+    else: return head(list) + sum( tail(list) )
+    
+def divisores_aux(n, i):
+    if n == i: return []
+    
+    if n%i == 0: return [i] + divisores_aux(n, i+1)
+    else: return divisores_aux(n, i+1)
+    
+def divisores(n):
+    return divisores_aux(n, 1)
+
+def perfects_aux(n, i):
+    if n == i: return []
+    
+    if sum( divisores(i) ) == i: return [i] + perfects_aux(n, i+1)
+    else: return perfects_aux(n, i+1)
+    
+def perfects(n):
+    if n <= 6: return []
+    return perfects_aux(n, 6)
+
+# 26  produto escalar de dois vetores v e w de tamanho n é dado pela soma dos produtos dos elementos correspondentes. Usando list comprehension, defina uma função que retorna o produto escalar de dois vetores representados por listas
+def produto_escalar(v1, v2):
+    return [x1*x2 for x1, x2 in zip(v1, v2)]
+
+# 27 O problema das n rainhas consiste em posicionar em um tabuleiro de xadrez n×n, n rainhas de modo que cada rainha não ataque as demais. Uma rainha pode atacar qualquer outra que esteja na mesma linha, coluna, ou nas mesmas diagonais. Considere que a representação da solução será feita por meio de uma lista de pares (Linha, Coluna), de coordenadas das rainhas. Defina a função ataca que dada uma posição e uma lista de posições diz se a primeira posição ataca qualquer uma das posições da lista.
+def n_rainhas():
+    print("?")
+    
+# 28 Implemente a função isPalindrome que verifica se uma string é palindroma ou não.
+def is_palindrome():
