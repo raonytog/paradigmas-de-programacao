@@ -18,7 +18,7 @@ def init(list):
 # 4 Escreva uma função ‘last’ que retorna o último elemento de uma lista
 def last(list):
     if list == [] or list == '': return head(list)
-    else: return last( tail(list) )
+    else: return list[-1]
 
 # 5 A sequência de Fibonacci é dada pela seguinte série: 0 1 1 2 3 5 8 13 ... Em termos matemáticos, a sequência de Fibonacci pode ser definida através da seguinte relação de recorrência
 def fib(n):
@@ -82,28 +82,27 @@ def is_prime(n):
     return prime_aux(n, 1, 0) == 2
 
 # 15 Defina a função strip que dadas duas listas, retira da segunda todos os elementos que ocorrem na primeira, em qualquer quantidade.
-### MEDIA
 def strip(elementos, l2):
     if l2 == [] or l2 == '': return l2
     elif pertence( head(l2), elementos): return strip(elementos, tail(l2) )
     else: return [head(l2)] + strip( elementos, tail(l2))
     
+# --------------------------- NAO FEITA ---------------------------
 # 16 Defina   a   função   consoantList   que   retorna   verdadeiro   se   somente   se   todas   as consoantes da segunda lista, incluindo repetições, ocorrem na primeira lista, na mesma ordem.
-# NAO FIZ
 def consoant_list(consoantes, l2):
     if consoantes == [] or consoantes == '': return True
     
     elif pertence(head(consoantes), l2): 
         return consoant_list(tail(consoantes), strip([head(consoantes)], l2))
     else: return consoant_list(consoantes, tail(l2))
-    
-# print(consoant_list(list('sdd'), list('saudade')))
+# -----------------------------------------------------------------
 
+# --------------------------- NAO FEITA ---------------------------
 # 17 Defina a função matches que recebe uma lista de palavras e uma sequência de  consoantes e retorna uma lista de possíveis palavras representadas pelas consoantes. Use a função da Q14. Exemplos:
-# NAO FIZ
 dic = ["arara","arreio","haskell","vaca","vacuo","velho","vermelho","vicio"]
 def match():
     print()
+# -----------------------------------------------------------------
     
 # 18 Faça uma função que, dado um número, retorna o menor número primo que é maior que o número. Ex: proximoPrimo(2) → 3
 def next_prime(n):
@@ -139,12 +138,10 @@ def split_token(token, l1):
     if not pertence(token, l1): return [l1]
     else: return split_token_aux(token, l1, output=[])
 
+# --------------------------- NAO FEITA ---------------------------
 # 22 Defina a função joinToken que recebe um valor e uma lista de listas e retorna a concatenação das sublistas usando o primeiro parâmetro como separador
-# NAO SEI SE ENTENDI
 def join_token(token, list):
     print()
-
-# print( join_token(2, [[1, 2],[2, 3]]) )
 
 # 23 Defina a função splitHalf que divide uma lista em duas, de tamanho iguais (ou com  diferença de apenas um elemento no caso de uma lista de tamanho ímpar).
 def is_even(n):
@@ -157,9 +154,10 @@ def split_half_aux(original, left, max_size, current_size):
 def split_half(l1):
     if l1 == [] or l1 == '': return []
     else: return split_half_aux(l1, [], size(l1), 0)
+    # -----------------------------------------------------------------
     
+# --------------------------- NAO FEITA ---------------------------
 # 24 Uma tripla (x,y,z) de números inteiros positivos é chamada pitagórica se x2+y2 = z2. Usando list comprehension, defina uma função pyths que mapeia um inteiro n a uma lista de todas as triplas pitagóricas componentes no intervalo [1..n]. Por exemplo
-# ALGO ERRADO!
 def pyths_aux(i, j, n):
     if i**2 + j**2 == n**2: 
         return (i, j, n)
@@ -172,8 +170,8 @@ def pyths_aux(i, j, n):
 def pyths(n):
     if n <= 0: return []
     else: return pyths_aux(1, 1, n)
-    
-# print( pyths(5) )
+# -----------------------------------------------------------------
+
 #25 Um número inteiro positivo é perfeito se ele igual à soma de todos os seus fatores, excluindo o próprio número. Usando list comprehension, defina uma função perfects que retorna a lista de todos os números perfeitos de zero até um dado limite. Por exemplo: perfects (500) -> [6,28,496]
 def sum(list):
     if list == []: return 0
@@ -202,9 +200,43 @@ def perfects(n):
 def produto_escalar(v1, v2):
     return [x1*x2 for x1, x2 in zip(v1, v2)]
 
+# --------------------------- NAO FEITA ---------------------------
 # 27 O problema das n rainhas consiste em posicionar em um tabuleiro de xadrez n×n, n rainhas de modo que cada rainha não ataque as demais. Uma rainha pode atacar qualquer outra que esteja na mesma linha, coluna, ou nas mesmas diagonais. Considere que a representação da solução será feita por meio de uma lista de pares (Linha, Coluna), de coordenadas das rainhas. Defina a função ataca que dada uma posição e uma lista de posições diz se a primeira posição ataca qualquer uma das posições da lista.
 def n_rainhas():
     print("?")
+# -----------------------------------------------------------------
     
 # 28 Implemente a função isPalindrome que verifica se uma string é palindroma ou não.
-def is_palindrome():
+def is_palindrome(str):
+    if str == [] or str == '': return True
+    if head(str) == last(str): return True and is_palindrome( tail( init(str) ) )
+    else: return False
+
+# 29 Implemente a função compress que elimina duplicadas consecutivas em uma lista.
+def remove_duplicata(list):
+    if list == [] or list == '': return []
+    if head(list) == head( tail(list) ): return remove_duplicata( tail(list) )
+    else: return [head(list)] + remove_duplicata( tail(list) )
+    
+#30 Implemente a função pack que empacota os elementos duplicados consecutivos em sublistas
+def pack(list):
+    if list == [] or list == '': return []
+    if head(list) == head( tail(list) ): return [head(list)] + pack(tail(list))
+    else: return pack( tail(list) )
+    
+# 31 Implemente a função encode que especifica o método de compressão de dados baseado no tamanho da sequência repetida. Neste método os elementos duplicados consecutivos são codificados como duplas (N,E), onde N é o número de duplicadas do elemento E. Ex: encode "aaaabccaadeeee" -> [(4,’a’),(1,’b’),(2,’c’),(2,’a’),(1,’d’),(4,’e’)]
+def encode_aux(list, counter):
+    if list == [] or list == '': return []
+    if head(list) == head( tail(list) ): return encode_aux(tail(list), counter+1)
+    else: return [(counter, head(list))] + encode_aux( tail(list), 1)
+    
+def encode(list):
+    if list == [] or list == '': return []
+    return encode_aux(list, 1)
+
+# 32 Implemente a função decode a qual, dada uma lista codificada como no exercício anterior, gera a lista original.
+def decode(list):
+    if list == []: return ''
+    return head(list)[1]*head(list)[0] + decode(tail(list))
+    
+print( decode([(4, 'a'), (1, 'b'), (2, 'c'), (2, 'a'), (1, 'd'), (4, 'e')]) )
