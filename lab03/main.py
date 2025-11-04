@@ -36,6 +36,9 @@ def len(list):
     return 1 + len( tail(list) )
 
 # SUM - soma da lista
+def sum(list):
+    if list == [] or list == '': return 0
+    else: return head(list) + sum( tail(list) )
 
 # ZIP -  recebe dois iteráveis e retorna uma lista com os elementos de ambos;
 # OBS: essa é a descricao q ele botou no slide, mas a funcao zip no python retorna uma lista de tuplas
@@ -239,10 +242,7 @@ def pyths(n):
 # -----------------------------------------------------------------
 
 #25 Um número inteiro positivo é perfeito se ele igual à soma de todos os seus fatores, excluindo o próprio número. Usando list comprehension, defina uma função perfects que retorna a lista de todos os números perfeitos de zero até um dado limite. Por exemplo: perfects (500) -> [6,28,496]
-def sum(list):
-    if list == []: return 0
-    else: return head(list) + sum( tail(list) )
-    
+
 def divisores_aux(n, i):
     if n == i: return []
     
