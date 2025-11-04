@@ -219,7 +219,8 @@ def split_token(token, l1):
 def join_token(token, lista):
     if lista == []: return []
     
-    return head(lista) + [token] + join_token(token, tail(lista) )
+    if len( tail(lista) ) == 0: return head(lista)
+    else: return head(lista) + [token] + join_token(token, tail(lista) )
      
 print( join_token(2, [[0, 0, 0], [1, 1, 1], [3, 3, 3]]) )
 
