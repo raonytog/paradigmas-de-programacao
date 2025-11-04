@@ -1,4 +1,3 @@
-
 # 1 Escreva uma função ‘head’ que retorna o primeiro elemento de uma lista
 def head(list):
     if list == [] or list == '': return []
@@ -9,7 +8,6 @@ def tail(list):
     if list == [] or list == '': return []
     else: return list[1:]
     
-
 # 3 Escreva uma função ‘init’ que retorna toda a lista, exceto o último elemento
 def init(list):
     if list == [] or list == '': return []
@@ -19,6 +17,75 @@ def init(list):
 def last(list):
     if list == [] or list == '': return head(list)
     else: return list[-1]
+    
+# ANY - retorna true s.s.s. há algum elemento true (ou equiv.) na lista;
+def any(list):
+    if list == [] or list == '': return False
+    if head(list) == True: return True
+    else: return any( tail(list) )
+    
+# ALL - retorna true s.s.s. todos os elementos da lista são true (ou equiv.);
+def all(list):
+    if list == [] or list == '': return True
+    if head(list) == True: return True and all( tail(list) )
+    else: return False
+
+# LEN - retorna tamanho de uma lista;
+def len(list):
+    if list == [] or list == '': return 0
+    return 1 + len( tail(list) )
+
+# SUM - soma da lista
+
+# ZIP -  recebe dois iteráveis e retorna uma lista com os elementos de ambos;
+# OBS: essa é a descricao q ele botou no slide, mas a funcao zip no python retorna uma lista de tuplas
+# por exemplo: list(zip([1, 2], [3, 4])) retorna [(1, 3), (2, 4)]
+def my_zip_1(l1, l2):
+    if l2 == [] or l2 == '': return []
+    return l1 + [head(l2)] + my_zip_1( [], tail(l2) )
+
+def my_zip_2(l1, l2):
+    if l1 == [] or l1 == '': return []
+    return [(head(l1), head(l2))] + my_zip_2(tail(l1), tail(l2))
+    
+# REVERSED - retorna a lista em ordem inversa.
+def my_reversed(list):
+    if list == [] or list == '': return []
+    return [last(list)] + my_reversed(init(list))
+
+# ENUMERATE - retorna uma tupla com índice e elemento de uma lista
+def my_enumerate_aux(list, idx):
+    if list == [] or list == '': return []
+    return [(idx, head(list))] + my_enumerate_aux(tail(list), idx+1)
+    
+def my_enumerate(list):
+    return my_enumerate_aux(list, 0)
+
+# MAX - retorna o valor máximo da lista
+def max_aux(list, val):
+    if list == [] or list == '': return val
+    if head(list) > val: return max_aux(tail(list), head(list))
+    else: return max_aux(tail(list), val)
+    
+def max(list):
+    return max_aux(tail(list), head(list))
+
+# MIN - retorna o valor mínimo da lista
+def min_aux(list, val):
+    if list == [] or list == '': return val
+    if head(list) < val: return min_aux(tail(list), head(list))
+    else: return min_aux(tail(list), val)
+    
+def min(list):
+    return min_aux(tail(list), head(list))
+
+# SORTED - retorna se a lista esta ordenada
+def sorted(list):
+    if list == [] or list == '': return True
+    if head(tail(list)) != []:
+        if head(list) < head(tail(list)): return True and sorted(tail(list))
+        else: return False
+    else: return True
 
 # 5 A sequência de Fibonacci é dada pela seguinte série: 0 1 1 2 3 5 8 13 ... Em termos matemáticos, a sequência de Fibonacci pode ser definida através da seguinte relação de recorrência
 def fib(n):
@@ -69,7 +136,6 @@ def palindromizer(list):
 def size(list):
     if list == [] or list == '': return 0
     else: return 1 + size(tail(list))
-    
     
 # 14 Escreva a função ehPrimo para verificar se um número dado é primo.
 def prime_aux(n, i, c):
@@ -238,5 +304,3 @@ def encode(list):
 def decode(list):
     if list == []: return ''
     return head(list)[1]*head(list)[0] + decode(tail(list))
-    
-print( decode([(4, 'a'), (1, 'b'), (2, 'c'), (2, 'a'), (1, 'd'), (4, 'e')]) )
