@@ -156,22 +156,30 @@ def strip(elementos, l2):
     elif pertence( head(l2), elementos): return strip(elementos, tail(l2) )
     else: return [head(l2)] + strip( elementos, tail(l2))
     
-# --------------------------- NAO FEITA ---------------------------
 # 16 Defina   a   função   consoantList   que   retorna   verdadeiro   se   somente   se   todas   as consoantes da segunda lista, incluindo repetições, ocorrem na primeira lista, na mesma ordem.
-def consoant_list(consoantes, l2):
-    if consoantes == [] or consoantes == '': return True
+# isto é, oq ta na primeira lista, aparece na mesma ordem na segunda lista]
+def remove_primeira_aparicao(x, lista):
+    if not pertence(x, lista): 
+        if lista == []: return []
+        if lista == '': return ''
     
-    elif pertence(head(consoantes), l2): 
-        return consoant_list(tail(consoantes), strip([head(consoantes)], l2))
-    else: return consoant_list(consoantes, tail(l2))
-# -----------------------------------------------------------------
+    if head(lista) == x: return tail(lista)
+    else: return head(lista) + remove_primeira_aparicao(x, tail(lista))
 
-# --------------------------- NAO FEITA ---------------------------
+def consoant_list(consoantes, lista):
+    if consoantes == [] or consoantes == '': return True
+     
+    if not pertence( head(consoantes), lista): return False
+    else: return True and consoant_list(tail(consoantes), remove_primeira_aparicao(head(consoantes), lista))
+
 # 17 Defina a função matches que recebe uma lista de palavras e uma sequência de  consoantes e retorna uma lista de possíveis palavras representadas pelas consoantes. Use a função da Q14. Exemplos:
 dic = ["arara","arreio","haskell","vaca","vacuo","velho","vermelho","vicio"]
-def match():
-    print()
-# -----------------------------------------------------------------
+def match(lista, consoantes):
+    if lista == [] or lista == '': return []
+    
+    if consoant_list(consoantes, head(lista)): 
+        return [head(lista)] + match(tail(lista), consoantes)
+    else: return match(tail(lista), consoantes)
     
 # 18 Faça uma função que, dado um número, retorna o menor número primo que é maior que o número. Ex: proximoPrimo(2) → 3
 def next_prime(n):
@@ -207,10 +215,13 @@ def split_token(token, l1):
     if not pertence(token, l1): return [l1]
     else: return split_token_aux(token, l1, output=[])
 
-# --------------------------- NAO FEITA ---------------------------
 # 22 Defina a função joinToken que recebe um valor e uma lista de listas e retorna a concatenação das sublistas usando o primeiro parâmetro como separador
-def join_token(token, list):
-    print()
+def join_token(token, lista):
+    if lista == []: return []
+    
+    return head(lista) + [token] + join_token(token, tail(lista) )
+     
+print( join_token(2, [[0, 0, 0], [1, 1, 1], [3, 3, 3]]) )
 
 # 23 Defina a função splitHalf que divide uma lista em duas, de tamanho iguais (ou com  diferença de apenas um elemento no caso de uma lista de tamanho ímpar).
 def is_even(n):
@@ -223,26 +234,17 @@ def split_half_aux(original, left, max_size, current_size):
 def split_half(l1):
     if l1 == [] or l1 == '': return []
     else: return split_half_aux(l1, [], size(l1), 0)
-    # -----------------------------------------------------------------
     
-# --------------------------- NAO FEITA ---------------------------
 # 24 Uma tripla (x,y,z) de números inteiros positivos é chamada pitagórica se x2+y2 = z2. Usando list comprehension, defina uma função pyths que mapeia um inteiro n a uma lista de todas as triplas pitagóricas componentes no intervalo [1..n]. Por exemplo
-def pyths_aux(i, j, n):
-    if i**2 + j**2 == n**2: 
-        return (i, j, n)
-    
-    else: 
-        if i < 5: return pyths_aux(i+1, j, n)
-        elif i==5: return pyths_aux(1, j+1, n)
-        elif j==5: return ()
-    
 def pyths(n):
     if n <= 0: return []
-    else: return pyths_aux(1, 1, n)
-# -----------------------------------------------------------------
+    return [(x, y, z) 
+            for x in range(1, n+1) 
+            for y in range(1, n+1) 
+            for z in range(1, n+1) 
+            if x**2+y**2 == z**2]
 
 #25 Um número inteiro positivo é perfeito se ele igual à soma de todos os seus fatores, excluindo o próprio número. Usando list comprehension, defina uma função perfects que retorna a lista de todos os números perfeitos de zero até um dado limite. Por exemplo: perfects (500) -> [6,28,496]
-
 def divisores_aux(n, i):
     if n == i: return []
     
