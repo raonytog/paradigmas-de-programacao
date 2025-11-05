@@ -271,7 +271,11 @@ def produto_escalar(v1, v2):
 
 # --------------------------- NAO FEITA ---------------------------
 # 27 O problema das n rainhas consiste em posicionar em um tabuleiro de xadrez n×n, n rainhas de modo que cada rainha não ataque as demais. Uma rainha pode atacar qualquer outra que esteja na mesma linha, coluna, ou nas mesmas diagonais. Considere que a representação da solução será feita por meio de uma lista de pares (Linha, Coluna), de coordenadas das rainhas. Defina a função ataca que dada uma posição e uma lista de posições diz se a primeira posição ataca qualquer uma das posições da lista.
-def n_rainhas():
+tabuleiro = [[0,0,1],
+             [1,0,0],
+             [0,0,1]]
+
+def ataca(pos, list_pos):
     print("?")
 # -----------------------------------------------------------------
     
