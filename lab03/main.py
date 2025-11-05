@@ -267,7 +267,7 @@ def perfects(n):
 
 # 26  produto escalar de dois vetores v e w de tamanho n é dado pela soma dos produtos dos elementos correspondentes. Usando list comprehension, defina uma função que retorna o produto escalar de dois vetores representados por listas
 def produto_escalar(v1, v2):
-    return [x1*x2 for x1, x2 in zip(v1, v2)]
+    return sum([x1*x2 for x1, x2 in zip(v1, v2)])
 
 # --------------------------- NAO FEITA ---------------------------
 # 27 O problema das n rainhas consiste em posicionar em um tabuleiro de xadrez n×n, n rainhas de modo que cada rainha não ataque as demais. Uma rainha pode atacar qualquer outra que esteja na mesma linha, coluna, ou nas mesmas diagonais. Considere que a representação da solução será feita por meio de uma lista de pares (Linha, Coluna), de coordenadas das rainhas. Defina a função ataca que dada uma posição e uma lista de posições diz se a primeira posição ataca qualquer uma das posições da lista.
