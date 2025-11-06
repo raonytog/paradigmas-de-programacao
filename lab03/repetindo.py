@@ -306,15 +306,23 @@ def compress(lista):
 #30 Implemente a função pack que empacota os elementos duplicados consecutivos em sublistas
 def pack(lista):    
     def pack_aux(lista, output):
-        if lista == []: return output
+        if lista == []: return []
         
         if head(lista) == head(tail(lista)): return pack_aux(tail(lista), output+[head(lista)])
-        else: return pack_aux(tail(lista), output)
+        else: return [output] + pack_aux(tail(lista), [])
         
     return pack_aux(lista, [])
-
-print( pack([1, 1, 1, 2, 2]) )
     
 # 31 Implemente a função encode que especifica o método de compressão de dados baseado no tamanho da sequência repetida. Neste método os elementos duplicados consecutivos são codificados como duplas (N,E), onde N é o número de duplicadas do elemento E. Ex: encode "aaaabccaadeeee" -> [(4,’a’),(1,’b’),(2,’c’),(2,’a’),(1,’d’),(4,’e’)]
-
+def encode(lista):
+    def encode_aux(lista, c):
+        if lista == [] or lista == '': return []
+        if head(lista) == head( tail(lista) ): return encode_aux(tail(lista), c+1)
+        else: return [(c, head(lista))] + encode_aux(tail(lista), 1)
+        
+    return encode_aux(lista, 1)
+    
 # 32 Implemente a função decode a qual, dada uma lista codificada como no exercício anterior, gera a lista original.
+def decode(lista):
+    if lista == [] or lista == '': return ''
+    return head(lista)[1]*head(lista)[0] + decode(tail(lista))
