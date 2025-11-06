@@ -182,7 +182,7 @@ def strip(elementos, lista):
         
 # 16 Defina   a   função   consoantList   que   retorna   verdadeiro   se   somente   se   todas   as consoantes da segunda lista, incluindo repetições, ocorrem na primeira lista, na mesma ordem.
 def consoant_list(consoantes, lista):
-    if strip('aeiou', lista) == consoantes: return True
+    if operator.eq(strip('aeiou', lista), strip('aeiou', consoantes)): return True
     else: return False
     
 # 17 Defina a função matches que recebe uma lista de palavras e uma sequência de  consoantes e retorna uma lista de possíveis palavras representadas pelas consoantes. Use a função da Q14. Exemplos:
