@@ -89,6 +89,7 @@ def sorted(list):
         if head(list) < head(tail(list)): return True and sorted(tail(list))
         else: return False
     else: return True
+    
 
 # 5 A sequência de Fibonacci é dada pela seguinte série: 0 1 1 2 3 5 8 13 ... Em termos matemáticos, a sequência de Fibonacci pode ser definida através da seguinte relação de recorrência
 def fib(n):
@@ -141,14 +142,14 @@ def size(list):
     else: return 1 + size(tail(list))
     
 # 14 Escreva a função ehPrimo para verificar se um número dado é primo.
-def prime_aux(n, i, c):
+def prime_aux(n, i):
     if i > n: return 0
-    elif n % i == 0: return 1 + prime_aux(n, i+1, c+1)
-    else: return prime_aux(n, i+1, c)
+    elif n % i == 0: return 1 + prime_aux(n, i+1)
+    else: return prime_aux(n, i+1)
     
 def is_prime(n):
     if n <= 1: return False
-    return prime_aux(n, 1, 0) == 2
+    return prime_aux(n, 1) == 2
 
 # 15 Defina a função strip que dadas duas listas, retira da segunda todos os elementos que ocorrem na primeira, em qualquer quantidade.
 def strip(elementos, l2):
@@ -222,12 +223,7 @@ def join_token(token, lista):
     if len( tail(lista) ) == 0: return head(lista)
     else: return head(lista) + [token] + join_token(token, tail(lista) )
      
-print( join_token(2, [[0, 0, 0], [1, 1, 1], [3, 3, 3]]) )
-
 # 23 Defina a função splitHalf que divide uma lista em duas, de tamanho iguais (ou com  diferença de apenas um elemento no caso de uma lista de tamanho ímpar).
-def is_even(n):
-    return n%2==0
-
 def split_half_aux(original, left, max_size, current_size):
     if current_size == max_size//2: return left, original
     else: return split_half_aux(tail(original), left+[head(original)], max_size, current_size+1)
@@ -296,7 +292,7 @@ def pack(list):
     if list == [] or list == '': return []
     if head(list) == head( tail(list) ): return [head(list)] + pack(tail(list))
     else: return pack( tail(list) )
-    
+        
 # 31 Implemente a função encode que especifica o método de compressão de dados baseado no tamanho da sequência repetida. Neste método os elementos duplicados consecutivos são codificados como duplas (N,E), onde N é o número de duplicadas do elemento E. Ex: encode "aaaabccaadeeee" -> [(4,’a’),(1,’b’),(2,’c’),(2,’a’),(1,’d’),(4,’e’)]
 def encode_aux(list, counter):
     if list == [] or list == '': return []
