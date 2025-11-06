@@ -95,13 +95,19 @@ def last(lista):
     return functools.reduce(lambda a, b: b, lista)
     
 # 5 A sequência de Fibonacci é dada pela seguinte série: 0 1 1 2 3 5 8 13 ... Em termos matemáticos, a sequência de Fibonacci pode ser definida através da seguinte relação de recorrência
+def conta(acc, n):
+  return acc[1], acc[0]+acc[1]
+
 def fib(n):
-    print("nao faz sentido")
-    
+    return functools.reduce(conta, range(0, n), (0, 1))[1]
 
 # 6 Faça uma função que concatena duas listas de forma recursiva. Utilize as funções head/tail para acessar os elementos. O comportamento deve ser o mesmo do operador + (listas). O operador + até pode ser usado, mas um dos operandos deve conter no máximo 1 elemento.
+def concat(l1, l2):
+  return functools.reduce(lambda acc, el: acc + [el], l2, l1)
 
 # 7 Escreva uma função que verifique se um elemento pertence a uma lista. Não usar o operador “in”;
+def pertence(lista, x):
+  return functools.reduce(lambda acc, el: acc or el==x, lista, False)
     
 # 8 Escreva uma função para realizar a união de duas listas. A função é similar à feita na Q6, mas elementos repetidos não são permitidos.
 

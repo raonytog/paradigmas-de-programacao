@@ -172,30 +172,19 @@ def is_prime(n):
         else: return is_prime_aux(n, i+1)
     return is_prime_aux(n, 1) == 2    
 
-# 15 Defina a função strip que dadas duas listas, retira da segunda todos os elementos que ocorrem na primeira, em qualquer quantidade.
+# 15 Defina a função strip que dadas duas listas, retira da segunda todos os elementos que ocorrem na primeira, em qualquer quantidade. 
 def strip(elementos, lista):
-    if lista == []: return lista
+    if lista == [] or lista == '': return lista
     if pertence(elementos, head(lista)): return strip(elementos, tail(lista))
-    else: return [head(lista)] + strip(elementos, tail(lista))
     
+    if isinstance(lista, list): return [head(lista)] + strip(elementos, tail(lista))
+    if isinstance(lista, str): return head(lista) + strip(elementos, tail(lista))
+        
 # 16 Defina   a   função   consoantList   que   retorna   verdadeiro   se   somente   se   todas   as consoantes da segunda lista, incluindo repetições, ocorrem na primeira lista, na mesma ordem.
-# isto é, oq ta na primeira lista, aparece na mesma ordem na segunda lista]
-def rmv_first_aparicao(lista, x):
-        if not pertence(lista, x): 
-            if lista == []: return []
-            if lista == '': return ''
-            
-        if head(lista) == x: return tail(lista)
-        else: 
-            if isinstance(lista, str): return head(lista) + rmv_first_aparicao(tail(lista), x)
-            if isinstance(lista, list): return [head(lista)] + rmv_first_aparicao(tail(lista), x)
-            
 def consoant_list(consoantes, lista):
-    if consoantes == [] or consoantes == '': return True
-            
-    if not pertence(lista, head(consoantes)): return False
-    else: return True and consoant_list(tail(consoantes), rmv_first_aparicao(lista, head(consoantes)))
-
+    if strip('aeiou', lista) == consoantes: return True
+    else: return False
+    
 # 17 Defina a função matches que recebe uma lista de palavras e uma sequência de  consoantes e retorna uma lista de possíveis palavras representadas pelas consoantes. Use a função da Q14. Exemplos:
 dic = ["arara","arreio","haskell","vaca","vacuo","velho","vermelho","vicio"]
 def match(lista, consoantes):
@@ -209,8 +198,6 @@ def nxtPrime(n):
     else: return nxtPrime(n+1)
     
 # 19 Faça a função primes, que retorna a lista de fatores primos de um número que ela recebe. Ex: primes(8)→ [2,2,2]
-
-
 def fatores(n):
     def fatores_aux(n, i):
         if i > n: return []
